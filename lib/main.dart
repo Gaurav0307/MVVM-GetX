@@ -1,8 +1,16 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mvvm_getx/presentation/views/splash_screen.dart';
+import 'package:get/get.dart';
+import 'package:mvvm_getx/presentation/views/create_todo.dart';
+import 'package:mvvm_getx/presentation/views/home_screen.dart';
+
+import 'presentation/bindings/initial_binding.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,10 +19,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.indigoAccent)),
-      home: const SplashScreen(),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'MVVM GetX',
+      theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.lightBlueAccent),
+      ),
+      initialBinding: InitialBinding(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/createTodo', page: () => const CreateTodoScreen()),
+      ],
+      routingCallback: (routing) {
+        if (routing!.current == '/') {
+          debugPrint('🏠 Home Screen');
+        } else if (routing.current.startsWith('/createTodo')) {
+          debugPrint('💾 Create Todo Screen');
+        }
+      },
+      // home: const HomeScreen(),
     );
   }
 }

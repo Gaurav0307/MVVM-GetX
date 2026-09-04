@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:mvvm_getx/core/global/global.dart';
 
 import '../constants/api_constants.dart';
 import 'dio_exception_handler.dart';
@@ -38,7 +40,7 @@ class DioClient {
             options.headers['Authorization'] = 'Bearer $token';
           }
 
-          print('''
+          debugPrint('''
             ══════════ REQUEST ══════════
             URL: ${options.uri}
             METHOD: ${options.method}
@@ -50,7 +52,7 @@ class DioClient {
           handler.next(options);
         },
         onResponse: (response, handler) {
-          print('''
+          debugPrint('''
             ══════════ RESPONSE ══════════
             URL: ${response.requestOptions.uri}
             STATUS: ${response.statusCode}
@@ -61,7 +63,7 @@ class DioClient {
           handler.next(response);
         },
         onError: (error, handler) {
-          print('''
+          debugPrint('''
             ══════════ ERROR ══════════
             URL: ${error.requestOptions.uri}
             ERROR: ${error.message}
@@ -76,11 +78,8 @@ class DioClient {
   }
 
   Future<String?> _getToken() async {
-    /// Example:
-    /// final prefs = await SharedPreferences.getInstance();
-    /// return prefs.getString("token");
-
-    return null;
+    Global.init();
+    return Global.token;
   }
 
   Future<void> updateToken(String token) async {

@@ -6,7 +6,8 @@ class ApiConstants {
   static const Duration sendTimeout = Duration(seconds: 30);
 
   static const String todos = "/todos"; // GET
-  static const String todo = "/todos/{id}"; // POST
+  static const String todo = "/todos/{id}"; // GET
+  static const String createTodo = "/todos"; // POST
   static const String updateTodo = "/todos/{id}"; // PUT
   static const String deleteTodo = "/todos/{id}"; // DELETE
 }
