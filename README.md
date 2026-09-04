@@ -1595,18 +1595,6 @@ Scalable Application Architecture
 
 ---
 
-# 🤝 Contributing
-
-Contributions are always welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit changes
-4. Push changes
-5. Create a Pull Request
-
----
-
 # ⭐ Support
 
 If you find this repository useful, don't forget to:
