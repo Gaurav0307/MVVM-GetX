@@ -16,7 +16,6 @@ A scalable, maintainable, and developer-friendly Flutter project structure built
 </div>
 
 ---
-# 🚀 MVVM-GetX
 
 ### 🎯 A scalable Flutter MVVM architecture powered by GetX, Dio & Repository Pattern
 
