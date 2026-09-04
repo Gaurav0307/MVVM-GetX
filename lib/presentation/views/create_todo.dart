@@ -119,12 +119,12 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                   child: Obx(() {
                     return ElevatedButton(
                       onPressed:
-                          todoController.todosResponse.value.status ==
+                          todoController.apiResponse.value.status ==
                               Status.loading
                           ? null
                           : _createTodo,
                       child:
-                          todoController.todosResponse.value.status ==
+                          todoController.apiResponse.value.status ==
                               Status.loading
                           ? const CircularProgressIndicator()
                           : const Text('Create Todo'),

@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text('MVVM GetX')),
       body: GetBuilder<TodoViewModel>(
         builder: (todoController) {
-          switch (todoController.todosResponse.value.status!) {
+          switch (todoController.apiResponse.value.status!) {
             case Status.loading:
               return Center(child: CircularProgressIndicator());
             case Status.completed:
@@ -35,39 +35,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount:
-                          todoController.todosResponse.value.data?.length,
+                      itemCount: todoController.apiResponse.value.data?.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                           leading: Text("${index + 1}"),
                           title: Text(
-                            "${todoController.todosResponse.value.data?[index].title}",
+                            "${todoController.apiResponse.value.data?[index].title}",
                           ),
                           trailing: Checkbox(
                             value: todoController
-                                .todosResponse
+                                .apiResponse
                                 .value
                                 .data?[index]
                                 .completed,
                             onChanged: (value) {
-                              todoController.todosResponse.value.data![index] =
-                                  todoController
-                                      .todosResponse
-                                      .value
-                                      .data![index]
+                              todoController.apiResponse.value.data![index] =
+                                  todoController.apiResponse.value.data![index]
                                       .copyWith(
                                         userId: todoController
-                                            .todosResponse
+                                            .apiResponse
                                             .value
                                             .data![index]
                                             .userId,
                                         id: todoController
-                                            .todosResponse
+                                            .apiResponse
                                             .value
                                             .data![index]
                                             .id,
                                         title: todoController
-                                            .todosResponse
+                                            .apiResponse
                                             .value
                                             .data![index]
                                             .title,
@@ -75,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                               todoController.updateTodo(
                                 todo: todoController
-                                    .todosResponse
+                                    .apiResponse
                                     .value
                                     .data![index],
                               );
@@ -92,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             case Status.error:
               return Center(
-                child: Text("${todoController.todosResponse.value.message}"),
+                child: Text("${todoController.apiResponse.value.message}"),
               );
           }
         },

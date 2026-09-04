@@ -17,19 +17,19 @@ class TodoViewModel extends GetxController {
     getTodos();
   }
 
-  var todosResponse = ApiResponse<List<ToDoModel>>.loading().obs;
+  var apiResponse = ApiResponse<List<ToDoModel>>.loading().obs;
 
   Future<void> getTodo({required int id}) async {
     try {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.loading();
+      apiResponse.value = ApiResponse<List<ToDoModel>>.loading();
       update();
 
       final data = await repository.getTodo(id: id);
 
-      todosResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
+      apiResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
       update();
     } catch (e) {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
+      apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
       log("Exception:-> $e");
@@ -39,15 +39,15 @@ class TodoViewModel extends GetxController {
 
   Future<void> getTodos() async {
     try {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.loading();
+      apiResponse.value = ApiResponse<List<ToDoModel>>.loading();
       update();
 
       final data = await repository.getTodos();
 
-      todosResponse.value = ApiResponse<List<ToDoModel>>.completed(data);
+      apiResponse.value = ApiResponse<List<ToDoModel>>.completed(data);
       update();
     } catch (e) {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
+      apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
       log("Exception:-> $e");
@@ -57,15 +57,15 @@ class TodoViewModel extends GetxController {
 
   Future<void> createTodo({required ToDoModel todo}) async {
     try {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.loading();
+      apiResponse.value = ApiResponse<List<ToDoModel>>.loading();
       update();
 
       final data = await repository.createTodo(todo: todo);
 
-      todosResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
+      apiResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
       update();
     } catch (e) {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
+      apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
       log("Exception:-> $e");
@@ -75,15 +75,15 @@ class TodoViewModel extends GetxController {
 
   Future<void> updateTodo({required ToDoModel todo}) async {
     try {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.loading();
+      apiResponse.value = ApiResponse<List<ToDoModel>>.loading();
       update();
 
       final data = await repository.updateTodo(todo: todo);
 
-      todosResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
+      apiResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
       update();
     } catch (e) {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
+      apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
       log("Exception:-> $e");
@@ -93,15 +93,15 @@ class TodoViewModel extends GetxController {
 
   Future<void> deleteTodo({required int id}) async {
     try {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.loading();
+      apiResponse.value = ApiResponse<List<ToDoModel>>.loading();
       update();
 
       final data = await repository.deleteTodo(id: id);
 
-      todosResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
+      apiResponse.value = ApiResponse<List<ToDoModel>>.completed([data]);
       update();
     } catch (e) {
-      todosResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
+      apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
       log("Exception:-> $e");

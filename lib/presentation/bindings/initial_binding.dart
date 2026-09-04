@@ -7,17 +7,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    var dioClient = Get.put(DioClient());
+    Get.lazyPut<DioClient>(() => DioClient(), fenix: true);
 
-    var todoRepository = Get.put(TodoRepository(dioClient));
+    Get.lazyPut<TodoRepository>(
+      () => TodoRepository(Get.find<DioClient>()),
+      fenix: true,
+    );
 
     Get.lazyPut<TodoViewModel>(
-      () => TodoViewModel(todoRepository),
+      () => TodoViewModel(Get.find<TodoRepository>()),
       fenix: true,
     );
 
     Get.putAsync<SharedPreferences>(
-      () async => await SharedPreferences.getInstance(),
+      () async => SharedPreferences.getInstance(),
       permanent: true,
     );
   }
