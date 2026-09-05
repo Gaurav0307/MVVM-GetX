@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mvvm_getx/core/global/global.dart';
 
 import '../constants/api_constants.dart';
+import '../constants/log_colors.dart';
 import 'dio_exception_handler.dart';
 
 class DioClient {
@@ -40,36 +41,83 @@ class DioClient {
             options.headers['Authorization'] = 'Bearer $token';
           }
 
-          debugPrint('''
-            ══════════ REQUEST ══════════
-            URL: ${options.uri}
-            METHOD: ${options.method}
-            HEADERS: ${options.headers}
-            BODY: ${options.data}
-            ═════════════════════════════
+          if (kDebugMode) {
+            // debugPrint('''
+            // ══════════ REQUEST ══════════
+            // URL: ${options.uri}
+            // METHOD: ${options.method}
+            // HEADERS: ${options.headers}
+            // BODY: ${options.data}
+            // ═════════════════════════════
+            // ''');
+
+            debugPrint('''
+            ${LogColors.cyan}${LogColors.bold}
+            ╔══════════════════════════════════════════════╗
+            ║              🌐 API REQUEST                  ║
+            ╚══════════════════════════════════════════════╝
+            ${LogColors.reset}
+            ${LogColors.yellow}🔗 URL     :${LogColors.reset} ${options.uri}
+            ${LogColors.green}📤 METHOD  :${LogColors.reset} ${options.method}
+            ${LogColors.blue}📋 HEADERS :${LogColors.reset} ${options.headers}
+            ${LogColors.magenta}📦 BODY    :${LogColors.reset} ${options.data}
+            
+            ${LogColors.cyan}══════════════════════════════════════════════${LogColors.reset}
             ''');
+          }
 
           handler.next(options);
         },
         onResponse: (response, handler) {
-          debugPrint('''
-            ══════════ RESPONSE ══════════
-            URL: ${response.requestOptions.uri}
-            STATUS: ${response.statusCode}
-            DATA: ${response.data}
-            ══════════════════════════════
+          if (kDebugMode) {
+            // debugPrint('''
+            // ══════════ RESPONSE ══════════
+            // URL: ${response.requestOptions.uri}
+            // STATUS: ${response.statusCode}
+            // DATA: ${response.data}
+            // ══════════════════════════════
+            // ''');
+            debugPrint('''
+            ${LogColors.green}${LogColors.bold}
+            ╔══════════════════════════════════════════════╗
+            ║              ✅ API RESPONSE                 ║
+            ╚══════════════════════════════════════════════╝
+            ${LogColors.reset}
+            ${LogColors.yellow}🔗 URL         :${LogColors.reset} ${response.requestOptions.uri}
+            ${LogColors.cyan}📥 STATUS CODE :${LogColors.reset} ${response.statusCode}
+            ${LogColors.magenta}📦 DATA        :${LogColors.reset} ${response.data}
+            
+            ${LogColors.green}══════════════════════════════════════════════${LogColors.reset}
             ''');
+          }
 
           handler.next(response);
         },
         onError: (error, handler) {
-          debugPrint('''
-            ══════════ ERROR ══════════
-            URL: ${error.requestOptions.uri}
-            ERROR: ${error.message}
-            STATUS: ${error.response?.statusCode}
-            ═══════════════════════════
+          if (kDebugMode) {
+            // debugPrint('''
+            // ══════════ ERROR ══════════
+            // URL: ${error.requestOptions.uri}
+            // ERROR: ${error.message}
+            // STATUS: ${error.response?.statusCode}
+            // ═══════════════════════════
+            // ''');
+            debugPrint('''
+            ${LogColors.red}${LogColors.bold}
+            ╔══════════════════════════════════════════════╗
+            ║                ❌ API ERROR                  ║
+            ╚══════════════════════════════════════════════╝
+            ${LogColors.reset}
+            ${LogColors.yellow}🔗 URL         :${LogColors.reset} ${error.requestOptions.uri}
+            ${LogColors.cyan}📤 METHOD      :${LogColors.reset} ${error.requestOptions.method}
+            ${LogColors.red}⚠️  TYPE        :${LogColors.reset} ${error.type}
+            ${LogColors.red}💥 MESSAGE     :${LogColors.reset} ${error.message}
+            ${LogColors.yellow}📊 STATUS CODE :${LogColors.reset} ${error.response?.statusCode}
+            ${LogColors.magenta}📦 DATA        :${LogColors.reset} ${error.response?.data}
+            
+            ${LogColors.red}══════════════════════════════════════════════${LogColors.reset}
             ''');
+          }
 
           handler.reject(error);
         },
@@ -78,6 +126,7 @@ class DioClient {
   }
 
   Future<String?> _getToken() async {
+    Global.init();
     return Global.token;
   }
 
