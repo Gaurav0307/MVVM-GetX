@@ -4,6 +4,8 @@ import 'package:mvvm_getx/data/repositories/todo_repository.dart';
 import 'package:mvvm_getx/presentation/view_models/todo_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/global/global.dart';
+
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
@@ -23,5 +25,7 @@ class InitialBinding extends Bindings {
       () async => SharedPreferences.getInstance(),
       permanent: true,
     );
+
+    Global.init();
   }
 }

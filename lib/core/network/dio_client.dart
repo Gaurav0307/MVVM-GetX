@@ -78,7 +78,6 @@ class DioClient {
   }
 
   Future<String?> _getToken() async {
-    Global.init();
     return Global.token;
   }
 
