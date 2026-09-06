@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:mvvm_getx/core/response/status.dart';
 import 'package:mvvm_getx/presentation/view_models/todo_view_model.dart';
 
+import '../../core/routes/routes.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -94,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed('/createTodo'),
+        onPressed: () => Get.toNamed(Routes.createTodo),
         child: const Icon(Icons.add),
       ),
     );
