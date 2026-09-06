@@ -27,14 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       initialBinding: InitialBinding(),
       initialRoute: Routes.home,
-      getPages: Routes.appRoutes(),
-      routingCallback: (routing) {
-        if (routing!.current == '/') {
-          debugPrint('🏠 Home Screen');
-        } else if (routing.current.startsWith('/createTodo')) {
-          debugPrint('💾 Create Todo Screen');
-        }
-      },
+      getPages: Routes.pages(),
+      routingCallback: Routes.callBack,
       // home: const HomeScreen(),
     );
   }
