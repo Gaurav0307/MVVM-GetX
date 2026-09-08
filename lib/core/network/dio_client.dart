@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mvvm_getx/core/global/global.dart';
 
 import '../constants/api_constants.dart';
-import '../constants/log_colors.dart';
+import '../res/colors/log_colors.dart';
 import 'dio_exception_handler.dart';
 
 class DioClient {

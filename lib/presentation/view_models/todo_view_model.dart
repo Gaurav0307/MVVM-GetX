@@ -11,12 +11,6 @@ class TodoViewModel extends GetxController {
 
   TodoViewModel(this.repository);
 
-  @override
-  void onInit() {
-    super.onInit();
-    getTodos();
-  }
-
   var apiResponse = ApiResponse<List<ToDoModel>>.loading().obs;
 
   Future<void> getTodo({required int id}) async {

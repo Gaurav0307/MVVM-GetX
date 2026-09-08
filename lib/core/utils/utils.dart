@@ -1,28 +1,28 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mvvm_getx/core/constants/api_constants.dart';
-import 'package:mvvm_getx/core/global/global.dart';
 import 'package:mvvm_getx/core/helper/dialog_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../presentation/view_models/todo_view_model.dart';
+import '../services/localization/localization.dart';
+
 class Utils {
   static Future<void> loadInitialData() async {
-    Global.init();
-
     List<Future> futures = [];
 
-    futures.addAll([
-      // Get.find<TodoViewModel>().getTodos(),
-    ]);
+    futures.addAll([Get.find<TodoViewModel>().getTodos()]);
 
     await Future.wait(futures);
+
+    await Get.find<LocalizationController>().setLanguage();
   }
 
   // Function to convert a string to a DateTime object
@@ -62,26 +62,20 @@ class Utils {
     return difference.inDays > days;
   }
 
-  static Future<bool> checkStoragePermission(TargetPlatform platform) async {
-    if (platform == TargetPlatform.android) {
-      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.version.sdkInt >= 29) {
-        return true;
-      }
-      final status1 = await Permission.storage.status;
-      if (status1 != PermissionStatus.granted) {
-        final result1 = await Permission.storage.request();
-        if (result1 == PermissionStatus.granted) {
-          return true;
-        }
-      } else {
-        return true;
-      }
-    } else {
+  static Future<bool> checkStoragePermission() async {
+    if (!Platform.isAndroid) {
       return true;
     }
-    return false;
+
+    var status = await Permission.storage.status;
+
+    if (status.isGranted) {
+      return true;
+    }
+
+    status = await Permission.storage.request();
+
+    return status.isGranted;
   }
 
   static Future<File?> moveFileToTempDirectory(File file) async {
@@ -136,9 +130,7 @@ class Utils {
   }
 
   static void download(BuildContext context, String fileUrl) async {
-    TargetPlatform platform = Theme.of(context).platform;
-
-    final hasPermission = await checkStoragePermission(platform);
+    final hasPermission = await checkStoragePermission();
 
     if (hasPermission) {
       final fileName =

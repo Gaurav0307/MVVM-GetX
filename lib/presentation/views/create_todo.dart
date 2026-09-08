@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mvvm_getx/data/models/ToDoModel.dart';
 
 import '../../core/response/status.dart';
+import '../../core/routes/routes.dart';
 import '../view_models/todo_view_model.dart';
 
 class CreateTodoScreen extends StatefulWidget {
@@ -58,7 +59,15 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Todo')),
+      appBar: AppBar(
+        title: const Text('Create Todo'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.translate),
+            onPressed: () => Get.toNamed(Routes.appLanguage),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

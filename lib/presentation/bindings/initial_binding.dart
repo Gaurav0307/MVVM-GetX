@@ -4,9 +4,21 @@ import 'package:mvvm_getx/data/repositories/todo_repository.dart';
 import 'package:mvvm_getx/presentation/view_models/todo_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/services/localization/localization.dart';
+
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
+    Get.putAsync<SharedPreferences>(
+      () async => await SharedPreferences.getInstance(),
+      permanent: true,
+    );
+
+    Get.lazyPut<LocalizationController>(
+      () => LocalizationController(),
+      fenix: true,
+    );
+
     Get.lazyPut<DioClient>(() => DioClient(), fenix: true);
 
     Get.lazyPut<TodoRepository>(
@@ -17,11 +29,6 @@ class InitialBinding extends Bindings {
     Get.lazyPut<TodoViewModel>(
       () => TodoViewModel(Get.find<TodoRepository>()),
       fenix: true,
-    );
-
-    Get.putAsync<SharedPreferences>(
-      () async => SharedPreferences.getInstance(),
-      permanent: true,
     );
   }
 }

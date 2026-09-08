@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mvvm_getx/core/response/status.dart';
 import 'package:mvvm_getx/presentation/view_models/todo_view_model.dart';
 
 import '../../core/routes/routes.dart';
+import '../../core/services/connectivity/internet_connectivity.dart';
+import '../../core/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +16,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+
+    Future.delayed(Duration(seconds: 2), () {
+      Utils.loadInitialData();
+      InternetConnectivity.addConnectivityListener(() {
+        Utils.loadInitialData();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
