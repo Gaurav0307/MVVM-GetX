@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         initialBinding: InitialBinding(),
-        initialRoute: Routes.home,
+        initialRoute: Routes.splash,
         getPages: Routes.pages(),
         routingCallback: Routes.callBack,
         // home: const HomeScreen(),

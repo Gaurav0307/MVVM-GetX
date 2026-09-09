@@ -26,9 +26,10 @@ class InitialBinding extends Bindings {
       fenix: true,
     );
 
-    Get.lazyPut<TodoViewModel>(
-      () => TodoViewModel(Get.find<TodoRepository>()),
-      fenix: true,
+    // Use Get.put() with permanent: true for ViewModels
+    Get.put<TodoViewModel>(
+      TodoViewModel(Get.find<TodoRepository>()),
+      permanent: true,
     );
   }
 }

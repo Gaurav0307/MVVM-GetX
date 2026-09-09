@@ -32,7 +32,6 @@ class LocalizationController extends GetxController {
       currentLanguage.value = 'marathi';
     }
     Get.updateLocale(Locale(languageCode, countryCode));
-    update();
   }
 
   Future<void> setLanguage() async {
@@ -57,6 +56,5 @@ class LocalizationController extends GetxController {
       currentLanguage.value = 'marathi';
     }
     Get.updateLocale(Locale(languageCode, countryCode));
-    update();
   }
 }

@@ -5,8 +5,6 @@ import 'package:mvvm_getx/core/response/status.dart';
 import 'package:mvvm_getx/presentation/view_models/todo_view_model.dart';
 
 import '../../core/routes/routes.dart';
-import '../../core/services/connectivity/internet_connectivity.dart';
-import '../../core/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,101 +28,134 @@ class _HomeScreenState extends State<HomeScreen> {
         statusBarIconBrightness: Brightness.light,
       ),
     );
-
-    Future.delayed(Duration(seconds: 2), () {
-      Utils.loadInitialData();
-      InternetConnectivity.addConnectivityListener(() {
-        Utils.loadInitialData();
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MVVM GetX')),
-      body: GetBuilder<TodoViewModel>(
-        builder: (todoController) {
-          switch (todoController.apiResponse.value.status!) {
-            case Status.loading:
-              return Center(child: CircularProgressIndicator());
-            case Status.completed:
-              return Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(5.0),
-                    color: Colors.black87,
-                    child: Center(
-                      child: Text(
-                        'Todos loaded successfully',
-                        style: TextStyle(color: Colors.white),
+    return PopScope(
+      canPop: false, //It should be false to work
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) {
+          return;
+        }
+        await _onBackPressed();
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('MVVM GetX')),
+        body: GetBuilder<TodoViewModel>(
+          builder: (todoController) {
+            switch (todoController.apiResponse.value.status!) {
+              case Status.loading:
+                return Center(child: CircularProgressIndicator());
+              case Status.completed:
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(5.0),
+                      color: Colors.black87,
+                      child: Center(
+                        child: Text(
+                          'Todos loaded successfully',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: todoController.apiResponse.value.data?.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Text("${index + 1}"),
-                          title: Text(
-                            "${todoController.apiResponse.value.data?[index].title}",
-                          ),
-                          trailing: Checkbox(
-                            value: todoController
-                                .apiResponse
-                                .value
-                                .data?[index]
-                                .completed,
-                            onChanged: (value) {
-                              todoController.apiResponse.value.data![index] =
-                                  todoController.apiResponse.value.data![index]
-                                      .copyWith(
-                                        userId: todoController
-                                            .apiResponse
-                                            .value
-                                            .data![index]
-                                            .userId,
-                                        id: todoController
-                                            .apiResponse
-                                            .value
-                                            .data![index]
-                                            .id,
-                                        title: todoController
-                                            .apiResponse
-                                            .value
-                                            .data![index]
-                                            .title,
-                                        completed: value!,
-                                      );
-                              todoController.updateTodo(
-                                todo: todoController
-                                    .apiResponse
-                                    .value
-                                    .data![index],
-                              );
-                            },
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount:
+                            todoController.apiResponse.value.data?.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: Text("${index + 1}"),
+                            title: Text(
+                              "${todoController.apiResponse.value.data?[index].title}",
+                            ),
+                            trailing: Checkbox(
+                              value: todoController
+                                  .apiResponse
+                                  .value
+                                  .data?[index]
+                                  .completed,
+                              onChanged: (value) {
+                                todoController.apiResponse.value.data![index] =
+                                    todoController
+                                        .apiResponse
+                                        .value
+                                        .data![index]
+                                        .copyWith(
+                                          userId: todoController
+                                              .apiResponse
+                                              .value
+                                              .data![index]
+                                              .userId,
+                                          id: todoController
+                                              .apiResponse
+                                              .value
+                                              .data![index]
+                                              .id,
+                                          title: todoController
+                                              .apiResponse
+                                              .value
+                                              .data![index]
+                                              .title,
+                                          completed: value!,
+                                        );
+                                todoController.updateTodo(
+                                  todo: todoController
+                                      .apiResponse
+                                      .value
+                                      .data![index],
+                                );
+                              },
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              );
-            case Status.error:
-              return Center(
-                child: Text("${todoController.apiResponse.value.message}"),
-              );
-          }
-        },
+                  ],
+                );
+              case Status.error:
+                return Center(
+                  child: Text("${todoController.apiResponse.value.message}"),
+                );
+            }
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.toNamed(Routes.createTodo),
+          child: const Icon(Icons.add),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.createTodo),
-        child: const Icon(Icons.add),
-      ),
+    );
+  }
+
+  Future<void> _onBackPressed() async {
+    await showAdaptiveDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("confirm".tr, style: const TextStyle(color: Colors.red)),
+          content: Text("doYouWantToExitTheApp".tr),
+          actions: <Widget>[
+            TextButton(
+              child: Text("no".tr, style: const TextStyle(color: Colors.blue)),
+              onPressed: () {
+                Navigator.of(context).pop(); //Will not exit the App
+              },
+            ),
+            TextButton(
+              child: Text("yes".tr, style: const TextStyle(color: Colors.red)),
+              onPressed: () {
+                SystemNavigator.pop();
+                Navigator.of(context).pop(); //Will exit the App
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

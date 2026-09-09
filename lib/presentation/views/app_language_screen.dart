@@ -22,7 +22,7 @@ class _AppLanguageScreenState extends State<AppLanguageScreen> {
         ),
       ),
       body: Center(
-        child: GetBuilder<LocalizationController>(
+        child: GetX<LocalizationController>(
           builder: (controller) => ListView(
             padding: const EdgeInsets.symmetric(
               horizontal: 15.0,

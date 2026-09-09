@@ -14,7 +14,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _english = {
-    "appName": "Our Shop",
+    "appName": "MVVM GetX",
     "confirm": "Confirm",
     "doYouWantToExitTheApp": "Do you want to exit the App?",
     "yes": "Yes",
@@ -192,7 +192,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _hindi = {
-    "appName": "हमारी दुकान",
+    "appName": "MVVM GetX",
     "confirm": "पुष्टि करें",
     "doYouWantToExitTheApp": "क्या आप ऐप से बाहर निकलना चाहते हैं?",
     "yes": "हाँ",
@@ -370,7 +370,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _bengali = {
-    "appName": "আমাদের দোকান",
+    "appName": "MVVM GetX",
     "confirm": "নিশ্চিত করুন",
     "doYouWantToExitTheApp": "আপনি কি অ্যাপ থেকে বের হতে চান?",
     "yes": "হ্যাঁ",
@@ -547,7 +547,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _kannada = {
-    "appName": "ನಮ್ಮ ಅಂಗಡಿ",
+    "appName": "MVVM GetX",
     "confirm": "ದೃಢೀಕರಿಸಿ",
     "doYouWantToExitTheApp": "ನೀವು ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ತ್ಯಜಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?",
     "yes": "ಹೌದು",
@@ -725,7 +725,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _urdu = {
-    "appName": "ہماری دکان",
+    "appName": "MVVM GetX",
     "confirm": "تصدیق کریں",
     "doYouWantToExitTheApp": "کیا آپ ایپ سے باہر نکلنا چاہتے ہیں؟",
     "yes": "ہاں",
@@ -904,7 +904,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _punjabi = {
-    "appName": "ਸਾਡੀ ਦੁਕਾਨ",
+    "appName": "MVVM GetX",
     "confirm": "ਪੁਸ਼ਟੀ ਕਰੋ",
     "doYouWantToExitTheApp": "ਕੀ ਤੁਸੀਂ ਐਪ ਤੋਂ ਬਾਹਰ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
     "yes": "ਹਾਂ",
@@ -1080,7 +1080,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _gujarati = {
-    "appName": "અમારું દુકાન",
+    "appName": "MVVM GetX",
     "confirm": "પુષ્ટિ કરો",
     "doYouWantToExitTheApp": "શું તમે એપ્લિકેશનમાંથી બહાર નીકળવા માંગો છો?",
     "yes": "હા",
@@ -1258,7 +1258,7 @@ class TextData extends Translations {
   };
 
   final Map<String, String> _marathi = {
-    "appName": "आमचे दुकान",
+    "appName": "MVVM GetX",
     "confirm": "पुष्टी करा",
     "doYouWantToExitTheApp": "आपण अ‍ॅपमधून बाहेर पडू इच्छिता?",
     "yes": "होय",
