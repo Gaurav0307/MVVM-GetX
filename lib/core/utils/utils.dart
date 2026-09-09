@@ -4,27 +4,13 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mvvm_getx/core/constants/api_constants.dart';
 import 'package:mvvm_getx/core/helper/dialog_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../presentation/view_models/todo_view_model.dart';
-import '../services/localization/localization.dart';
-
 class Utils {
-  static Future<void> loadInitialData() async {
-    List<Future> futures = [];
-
-    futures.addAll([Get.find<TodoViewModel>().getTodos()]);
-
-    await Future.wait(futures);
-
-    await Get.find<LocalizationController>().setLanguage();
-  }
-
   // Function to convert a string to a DateTime object
   static DateTime convertStringToDateTime(String dateTimeString) {
     return DateTime.parse(dateTimeString);

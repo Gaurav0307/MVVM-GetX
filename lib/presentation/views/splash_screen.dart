@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mvvm_getx/core/res/assets/app_assets.dart';
+import 'package:mvvm_getx/core/services/initial/initial.dart';
 
 import '../../core/res/colors/app_colors.dart';
 import '../../core/routes/routes.dart';
 import '../../core/services/connectivity/internet_connectivity.dart';
-import '../../core/utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,11 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> loadData() async {
     await Future.delayed(Duration(seconds: 5), () {
-      Utils.loadInitialData();
+      InitialService.loadData();
 
       // Internet Connectivity listener
       InternetConnectivity.addConnectivityListener(
-        () => Utils.loadInitialData(),
+        () => InitialService.loadData(),
       );
     });
 
