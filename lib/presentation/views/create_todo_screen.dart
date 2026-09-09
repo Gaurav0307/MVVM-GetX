@@ -4,6 +4,7 @@ import 'package:mvvm_getx/data/models/ToDoModel.dart';
 
 import '../../core/response/status.dart';
 import '../../core/routes/routes.dart';
+import '../../core/utils/utils.dart';
 import '../view_models/todo_view_model.dart';
 
 class CreateTodoScreen extends StatefulWidget {
@@ -21,12 +22,20 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   final _userIdController = TextEditingController();
   final _titleController = TextEditingController();
 
+  final _userIdFocusNode = FocusNode();
+  final _titleFocusNode = FocusNode();
+
   bool _completed = false;
 
   @override
   void dispose() {
     _userIdController.dispose();
     _titleController.dispose();
+
+    _formKey.currentState?.dispose();
+
+    _userIdFocusNode.dispose();
+    _titleFocusNode.dispose();
     super.dispose();
   }
 
@@ -77,6 +86,14 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
               children: [
                 TextFormField(
                   controller: _userIdController,
+                  focusNode: _userIdFocusNode,
+                  onFieldSubmitted: (value) {
+                    Utils.fieldFocusChange(
+                      context,
+                      _userIdFocusNode,
+                      _titleFocusNode,
+                    );
+                  },
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'User ID',
@@ -94,7 +111,14 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
 
                 TextFormField(
                   controller: _titleController,
+                  focusNode: _titleFocusNode,
+                  textInputAction:
+                      TextInputAction.done, // Required to hide keyboard
+                  onFieldSubmitted: (value) {
+                    Utils.hideKeyboard(context);
+                  },
                   maxLines: 3,
+                  maxLength: 100,
                   decoration: const InputDecoration(
                     labelText: 'Title',
                     border: OutlineInputBorder(),

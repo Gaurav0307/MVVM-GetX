@@ -7,6 +7,7 @@ import 'package:mvvm_getx/core/res/fonts/app_fonts.dart';
 import 'core/res/colors/app_colors.dart';
 import 'core/res/localization/localization.dart';
 import 'core/routes/routes.dart';
+import 'core/utils/utils.dart';
 import 'presentation/bindings/initial_binding.dart';
 
 void main() {
@@ -22,14 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Hide keyboard when tapping outside of text fields.
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
+      onTap: () => Utils.hideKeyboard(
+        context,
+      ), // Hide keyboard when tapping outside of text fields.
       child: GetMaterialApp(
         translations: TextData(), // your translations
         locale: const Locale(

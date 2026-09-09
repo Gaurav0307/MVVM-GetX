@@ -73,8 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 180.0),
+            child: Center(
               child: DefaultTextStyle(
                 style: TextStyle(
                   fontSize: 35,
