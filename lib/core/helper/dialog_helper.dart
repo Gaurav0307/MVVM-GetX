@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:mvvm_getx/core/network/app_exceptions.dart';
 
 class DialogHelper {
   /// Dialog
@@ -130,5 +131,19 @@ class DialogHelper {
         style: const TextStyle(color: Colors.white),
       ),
     );
+  }
+
+  static void exceptionSnackBar(AppException e) {
+    if (e is BadRequestException ||
+        e is UnauthorizedException ||
+        e is ForbiddenException ||
+        e is NotFoundException ||
+        e is ConflictException ||
+        e is ValidationException ||
+        e is InternalServerException ||
+        e is ServiceUnavailableException ||
+        e is FetchDataException) {
+      errorSnackBar(title: e.prefix ?? 'Error', description: e.message);
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mvvm_getx/core/global/global.dart';
+import 'package:mvvm_getx/core/storage/storage.dart';
 
 import '../constants/api_constants.dart';
 import '../res/colors/log_colors.dart';
@@ -126,8 +126,8 @@ class DioClient {
   }
 
   Future<String?> _getToken() async {
-    Global.init();
-    return Global.token;
+    Storage.init();
+    return Storage.getToken();
   }
 
   Future<void> updateToken(String token) async {

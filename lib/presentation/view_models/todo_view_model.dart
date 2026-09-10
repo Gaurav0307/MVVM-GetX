@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:mvvm_getx/data/models/ToDoModel.dart';
 
+import '../../core/helper/dialog_helper.dart';
+import '../../core/network/app_exceptions.dart';
 import '../../core/response/api_response.dart';
 import '../../data/repositories/todo_repository.dart';
 
@@ -26,6 +28,7 @@ class TodoViewModel extends GetxController {
       apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
+      DialogHelper.exceptionSnackBar(e as AppException);
       log("Exception:-> $e");
       // rethrow;
     }
@@ -44,6 +47,7 @@ class TodoViewModel extends GetxController {
       apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
+      DialogHelper.exceptionSnackBar(e as AppException);
       log("Exception:-> $e");
       // rethrow;
     }
@@ -62,6 +66,7 @@ class TodoViewModel extends GetxController {
       apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
+      DialogHelper.exceptionSnackBar(e as AppException);
       log("Exception:-> $e");
       // rethrow;
     }
@@ -80,6 +85,7 @@ class TodoViewModel extends GetxController {
       apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
+      DialogHelper.exceptionSnackBar(e as AppException);
       log("Exception:-> $e");
       // rethrow;
     }
@@ -98,6 +104,7 @@ class TodoViewModel extends GetxController {
       apiResponse.value = ApiResponse<List<ToDoModel>>.error(e.toString());
       update();
 
+      DialogHelper.exceptionSnackBar(e as AppException);
       log("Exception:-> $e");
       // rethrow;
     }

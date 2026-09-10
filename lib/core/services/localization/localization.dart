@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:get/get.dart';
 
 import '../../constants/app_config.dart';
-import '../../global/global.dart';
+import '../../storage/storage.dart';
 
 class LocalizationController extends GetxController {
   var currentLanguage = 'english'.obs;
@@ -12,8 +12,8 @@ class LocalizationController extends GetxController {
     required String languageCode,
     required String countryCode,
   }) async {
-    Global.prefs?.setString(AppConfig.languageCode, languageCode);
-    Global.prefs?.setString(AppConfig.countryCode, countryCode);
+    Storage.prefs?.setString(AppConfig.languageCode, languageCode);
+    Storage.prefs?.setString(AppConfig.countryCode, countryCode);
     if (languageCode == 'en') {
       currentLanguage.value = 'english';
     } else if (languageCode == 'hi') {
@@ -36,8 +36,9 @@ class LocalizationController extends GetxController {
 
   Future<void> setLanguage() async {
     String languageCode =
-        Global.prefs?.getString(AppConfig.languageCode) ?? 'en';
-    String countryCode = Global.prefs?.getString(AppConfig.countryCode) ?? 'IN';
+        Storage.prefs?.getString(AppConfig.languageCode) ?? 'en';
+    String countryCode =
+        Storage.prefs?.getString(AppConfig.countryCode) ?? 'IN';
     if (languageCode == 'en') {
       currentLanguage.value = 'english';
     } else if (languageCode == 'hi') {
