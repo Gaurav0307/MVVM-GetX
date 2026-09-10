@@ -310,8 +310,8 @@ lib/
 │   ├── constants/
 │   │   └── api_constants.dart
 │   │
-│   ├── global/
-│   │   └── global.dart
+│   ├── storage/
+│   │   └── storage.dart
 │   │
 │   ├── network/
 │   │   ├── app_exceptions.dart
@@ -384,7 +384,7 @@ It provides infrastructure used by different parts of the application.
 ```text
 core/
 ├── constants/
-├── global/
+├── storage/
 ├── network/
 └── response/
 ```
@@ -430,19 +430,19 @@ Centralizing constants makes API configuration:
 
 ---
 
-# 🌍 `core/global`
+# 🌍 `core/storage`
 
 ```text
 core/
-└── global/
-    └── global.dart
+└── storage/
+    └── storage.dart
 ```
 
-This directory contains globally accessible application-level functionality.
+This directory contains application-level functionality to store and retrieve data in Shared-Preferences.
 
-It can be used for values or helpers that need to be shared across different layers.
+Currently, it has functionalities to store and retrieve Token and User ID but can be updated to do more such things.
 
-Keeping global functionality in one place avoids scattering global configuration throughout the application.
+It has an object of SharedPreference named 'prefs' that can be used according to the requirements.
 
 ---
 
@@ -838,7 +838,7 @@ Get.lazyPut<TodoRepository>(
   () => TodoRepository(Get.find<DioClient>()),
 );
 
-Get.lazyPut<TodoViewModel>(
+Get.put<TodoViewModel>(
   () => TodoViewModel(Get.find<TodoRepository>()),
 );
 ```
